@@ -17,9 +17,9 @@ jobs:
       - name: "Set up JDK"
         uses: actions/setup-java@v4
         with:
-            distribution: temurin
-            java-version: 17
-            cache: maven
+          distribution: temurin
+          java-version: 17
+          cache: maven
       - name: "Build, unit tests and integration tests"
         run: |
           chmod +x mvnw 
@@ -31,11 +31,11 @@ jobs:
           path: "${{ github.workspace }}"
           fail-build: false
           output-format: sarif
-            - name: Upload vulnerability report
-              uses: github/codeql-action/upload-sarif@v3
-              if: success() || failure()
-              with:
-                sarif_file: results.sarif
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
   package:
     name: "Build and Publish"
     runs-on: ubuntu-22.04
@@ -79,6 +79,3 @@ jobs:
       - name: "push to registry"
         run: |
           docker push ${{env.REGISTRY}}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-   
-          
-          
