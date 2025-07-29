@@ -1,11 +1,9 @@
 name: "commit-stage"
 on: push
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: moustaphajr/config-service
   VERSION: latest
-
 jobs:
   build:
     name: "Build and Test"
@@ -19,9 +17,9 @@ jobs:
       - name: "Set up JDK"
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 17
-          cache: maven
+            distribution: temurin
+            java-version: 17
+            cache: maven
       - name: "Build, unit tests and integration tests"
         run: |
           chmod +x mvnw 
@@ -38,7 +36,6 @@ jobs:
               if: success() || failure()
               with:
                 sarif_file: results.sarif
-
   package:
     name: "Build and Publish"
     runs-on: ubuntu-22.04
